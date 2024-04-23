@@ -1,13 +1,12 @@
-import express from 'express'; 
-import { Router, Request, Response } from 'express';
+import express from 'express';
+import cors from 'cors';
+import { router } from './routes';
+
 const app = express();
-const route = Router();
-
+app.use(cors())
 app.use(express.json());
+app.use(router)
 
-route.get('/', (req: Request, res: Response) => {
-    res.json({message:'hello world with typescript'});
+app.listen(3000, () => {
+  console.log('Servidor ouvindo na porta 3000');
 });
-
-app.use(route);
-app.listen(3000, () => console.log("running port 3000"));
