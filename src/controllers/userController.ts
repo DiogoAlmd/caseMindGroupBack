@@ -95,7 +95,7 @@ class UserController {
                                 }
 
                                 const token = jwt.sign({ id: user.id }, 'yourSecretKey', { expiresIn: '2d' });
-                                res.status(200).json({ name: user.name, token });
+                                res.status(200).json({ user: user.name, token });
                             });
                         })
                         .catch((error) => {
