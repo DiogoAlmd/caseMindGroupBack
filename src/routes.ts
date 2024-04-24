@@ -6,12 +6,11 @@ import { auth } from './middlewares/auth';
 export const router = express.Router();
 
 router.get('/user/:id', UserController.getUserById);
-router.get('/user', UserController.login);
+router.post('/api/auth/user', UserController.login);
 router.post('/user', UserController.create);
 
 router.post('/product', auth, ProductController.create);
 router.get('/products', auth, ProductController.listProducts);
-<<<<<<< HEAD
 router.get('/product/:id', auth, ProductController.listProductById);
 router.put('/update/:id', auth, ProductController.update);
 router.delete('/delete/:id', auth, ProductController.delete);
@@ -21,7 +20,3 @@ router.delete('/delete/:id', auth, ProductController.delete);
 //router.get('/product/:id', ProductController.listProductById);
 //router.put('/update/:id', ProductController.update);
 //router.delete('/delete/:id', ProductController.delete);
-=======
-router.put('/update/:id', auth, ProductController.update);
-router.delete('/delete/:id', auth, ProductController.delete);
->>>>>>> parent of 938cf00 (list product by id)

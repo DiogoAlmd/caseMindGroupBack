@@ -7,15 +7,16 @@ class ProductController {
         const { name, description, image, price, stock_quantity } = request.body;
 
         // Verifica se o token JWT está presente no cabeçalho da solicitação
-        const token = request.headers.authorization?.split(' ')[1];
-        if (!token) {
-            return response.status(401).json({ message: 'Unauthorized' });
-        }
+        // const token = request.headers.authorization?.split(' ')[1];
+        // if (!token) {
+        //     return response.status(401).json({ message: 'Unauthorized' });
+        // }
 
         try {
             // Extrai o payload do token JWT
-            const decodedToken: any = jwt.verify(token, 'yourSecretKey');
-            const user_id = decodedToken.id;
+            // const decodedToken: any = jwt.verify(token, 'yourSecretKey');
+            // const user_id = decodedToken.id;
+            const user_id = 2;
 
             // Query SQL para inserir o produto
             const query = `INSERT INTO product (user_id, name, description, image, price, stock_quantity) 
@@ -41,17 +42,60 @@ class ProductController {
         }
     }
 
+    async listProductById(request: Request, response: Response) {
+        const productId = request.params.id; // Obter o ID do produto dos parâmetros da URL
+        try {
+            // Verifica se o token JWT está presente no cabeçalho da solicitação
+            // const token = request.headers.authorization?.split(' ')[1];
+            // if (!token) {
+            //     return response.status(401).json({ message: 'Unauthorized' });
+            // }
+
+            // Extrai o payload do token JWT
+            // const decodedToken: any = jwt.verify(token, 'yourSecretKey');
+            // const user_id = decodedToken.id;
+            const user_id = 2;
+
+            // Query SQL para buscar o produto pelo ID
+            const query = `SELECT * FROM product 
+                           WHERE id = ${productId} AND user_id = ${user_id}`;
+
+            Connect()
+                .then((connection) => {
+                    Query(connection, query)
+                        .then((results: any) => {
+                            connection.end();
+                            if (results.length === 0) {
+                                return response.status(404).json({ message: 'Product not found' });
+                            }
+                            return response.status(200).json({ product: results[0] });
+                        })
+                        .catch((error) => {
+                            connection.end();
+                            return response.status(500).json({ error: error.message });
+                        });
+                })
+                .catch((error) => {
+                    return response.status(500).json({ error: error.message });
+                }
+            );
+        } catch (error) {
+            return response.status(401).json({ message: 'Invalid token' });
+        }
+    }
+
     async listProducts(request: Request, response: Response) {
         // Verifica se o token JWT está presente no cabeçalho da solicitação
-        const token = request.headers.authorization?.split(' ')[1];
-        if (!token) {
-            return response.status(401).json({ message: 'Unauthorized' });
-        }
+        // const token = request.headers.authorization?.split(' ')[1];
+        // if (!token) {
+        //     return response.status(401).json({ message: 'Unauthorized' });
+        // }
     
         try {
             // Extrai o payload do token JWT
-            const decodedToken: any = jwt.verify(token, 'yourSecretKey');
-            const user_id = decodedToken.id;
+            // const decodedToken: any = jwt.verify(token, 'yourSecretKey');
+            // const user_id = decodedToken.id;
+            const user_id = 2;
     
             // Query SQL para buscar todos os produtos associados ao user_id
             const query = `SELECT * FROM product 
@@ -85,15 +129,16 @@ class ProductController {
         const { name, description, image, price, stock_quantity } = request.body;
 
         // Verifica se o token JWT está presente no cabeçalho da solicitação
-        const token = request.headers.authorization?.split(' ')[1];
-        if (!token) {
-            return response.status(401).json({ message: 'Unauthorized' });
-        }
+        // const token = request.headers.authorization?.split(' ')[1];
+        // if (!token) {
+        //     return response.status(401).json({ message: 'Unauthorized' });
+        // }
 
         try {
             // Extrai o payload do token JWT
-            const decodedToken: any = jwt.verify(token, 'yourSecretKey');
-            const user_id = decodedToken.id;
+            // const decodedToken: any = jwt.verify(token, 'yourSecretKey');
+            // const user_id = decodedToken.id;
+            const user_id = 2;
 
             // Query SQL para atualizar o produto
             const query = `UPDATE product 
@@ -125,15 +170,16 @@ class ProductController {
         const productId = request.params.id;
 
         // Verifica se o token JWT está presente no cabeçalho da solicitação
-        const token = request.headers.authorization?.split(' ')[1];
-        if (!token) {
-            return response.status(401).json({ message: 'Unauthorized' });
-        }
+        // const token = request.headers.authorization?.split(' ')[1];
+        // if (!token) {
+        //     return response.status(401).json({ message: 'Unauthorized' });
+        // }
 
         try {
             // Extrai o payload do token JWT
-            const decodedToken: any = jwt.verify(token, 'yourSecretKey');
-            const user_id = decodedToken.id;
+            // const decodedToken: any = jwt.verify(token, 'yourSecretKey');
+            // const user_id = decodedToken.id;
+            const user_id = 2;
 
             // Query SQL para deletar o produto
             const query = `DELETE FROM product 
